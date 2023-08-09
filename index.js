@@ -1,5 +1,6 @@
 import express from "express"
 import mongoose from "mongoose"
+import cors from "cors"
 import {config} from "dotenv"
 const app = express()
 // Path for env files 
@@ -14,6 +15,11 @@ mongoose.connect(process.env.MONGO_URI,{dbName : "ContactsDB"}).then((result) =>
 });
 
 // middleware 
+app.use(cors({
+    origin : [process.env.URL1 , process.env.URL2],
+    methods : ["GET", "PUT", "POST", "DELETE"],
+    credentials : true
+}))
 app.use(express.json())
 const ContactSchema = new mongoose.Schema({
     name : String,
@@ -53,6 +59,6 @@ app.post("/contact", async (req,res)=>{
 
 
 // App Started  
-app.listen(5000, ()=>{
-    console.log("Server started")
+app.listen(process.env.PORT, ()=>{
+    console.log("Server started on" + process.env.PORT)
 })
