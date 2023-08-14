@@ -38,13 +38,13 @@ app.post("/contact", async (req,res)=>{
     const transporter = nodemailer.createTransport({
         service : "gmail",
         auth : {
-            user : process.env.EMAIL,
-            pass : process.env.PASSWORD
+            user : " skumarupadhyay1@gmail.com",
+            pass : "hzhxyplifdvdmoqs"
         }
     })
     const mailOptions = {
-        from : email,
-        to : process.env.EMAIL,
+        from : process.env.EMAIL,
+        to : 'upadhyayrinkinarayan@gmail.com',
         subject : `Hey Vijay ${name} wants to talk to you `,
         html : `<h4>name : ${name} <br> email : ${email} <br> phone : ${phone} <br> Address : ${address} </h4><br><br><p>${message}</p>`,
 
