@@ -43,8 +43,8 @@ app.post("/contact", async (req,res)=>{
         }
     })
     const mailOptions = {
-        from : process.env.EMAIL,
-        to : email,
+        from : email,
+        to : process.env.EMAIL,
         subject : `Hey Vijay ${name} wants to talk to you `,
         html : `<h4>name : ${name} <br> email : ${email} <br> phone : ${phone} <br> Address : ${address} </h4><br><br><p>${message}</p>`,
 
