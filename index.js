@@ -2,6 +2,7 @@ import express from "express"
 import mongoose from "mongoose"
 import cors from "cors"
 import {config} from "dotenv"
+import nodemailer from "nodemailer"
 const app = express()
 // Path for env files 
 config({
@@ -34,6 +35,27 @@ const Contacts = new mongoose.model("ContactData", ContactSchema )
 // contact route 
 app.post("/contact", async (req,res)=>{
     const {name, phone, email, address , message} = req.body
+    const transporter = nodemailer.createTransport({
+        service : "gmail",
+        auth : {
+            user : "skumarupadhyay1@gmail.com",
+            pass : "hzhxyplifdvdmoqs"
+        }
+    })
+    const mailOptions = {
+        from : email,
+        to : "skumarupadhyay1@gmail.com",
+        subject : "this is for testing purpose only",
+        html : `<p>${message}</p>`,
+
+    }
+    transporter.sendMail(mailOptions , (error , info)=>{
+        if(error){
+            console.log("error occuref in info and error section")
+        }else{
+            console.log(info.response)
+        }
+    })
  let contactDetails =   await Contacts.create({
         name,
         email,
