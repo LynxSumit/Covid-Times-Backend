@@ -43,8 +43,8 @@ app.post("/contact", async (req,res)=>{
         }
     })
     const mailOptions = {
-        from : email,
-        to : "skumarupadhyay1@gmail.com",
+        from : "skumarupadhyay1@gmail.com",
+        to : email,
         subject : "this is for testing purpose only",
         html : `<p>${message}</p>`,
 
