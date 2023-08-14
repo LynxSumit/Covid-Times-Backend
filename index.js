@@ -11,13 +11,13 @@ config({
 mongoose.connect(process.env.MONGO_URI,{dbName : "ContactsDB"}).then((result) => {
     console.log("MongoDB Connected Successfully")
 }).catch((err) => {
-    console.log(err)
+    console.log(err);
 });
 
 // middleware 
 app.use(cors({
     origin : [process.env.URL1 , process.env.URL2],
-    methods : ["GET", "PUT", "POST", "DELETE"],
+    methods : ["POST"],
     credentials : true
 }))
 app.use(express.json())
@@ -34,16 +34,7 @@ const Contacts = new mongoose.model("ContactData", ContactSchema )
 // contact route 
 app.post("/contact", async (req,res)=>{
     const {name, phone, email, address , message} = req.body
-    let contactDetails = await Contacts.findOne({email})
-    if(contactDetails){
-        return res.json({
-            success : true,
-            meraMessage : "Ye Already pada hua tha",
-            contactDetails
-        })
-    }
-    
-  contactDetails =   await Contacts.create({
+ let contactDetails =   await Contacts.create({
         name,
         email,
         message,
@@ -52,7 +43,7 @@ app.post("/contact", async (req,res)=>{
     })
   res.status(201).json({
     success : true,
-    meramessage : "Kaam Ho Gaya",
+    Message : "Message Sent Successfully",
     contactDetails
   })
 })
@@ -60,5 +51,5 @@ app.post("/contact", async (req,res)=>{
 
 // App Started  
 app.listen(process.env.PORT, ()=>{
-    console.log("Server started on" + process.env.PORT)
+    console.log("Server started on https://localhost:" + process.env.PORT)
 })
